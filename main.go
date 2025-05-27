@@ -1,11 +1,24 @@
 package main
 
 import (
+	"Sirsi/src/repositories"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
 func main() {
+
+	uri, dbname := "mongodb+srv://sirsi:12345@clustersirsi.nibjz9g.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSirsi", "sirsi_database"
+	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")
+	repoTask, errTask := repositories.NewTaskRepository(uri, dbname, "tasks"))
+
+	if errUser != nil || errTask != nil {
+		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v,errTask=%v ", errUser,
+			errTask)
+		return
+	}
+
 	app := gin.Default()
 
 	app.GET("/", func(c *gin.Context) {
