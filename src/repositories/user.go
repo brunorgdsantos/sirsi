@@ -4,8 +4,8 @@ type UserRepository struct {
 	*MongoRepositoryContext
 }
 
-func NewUserRepository(uri, dbname, collectionName string) (*UserRepository, error) {
-	mongoRepo, err := NewMongoRepositoryContext(uri, dbname, collectionName)
+func NewUserRepository(uri, dbName, collectionName string) (*UserRepository, error) {
+	mongoRepo, err := NewMongoRepositoryContext(uri, dbName, collectionName)
 	if err != nil {
 		return nil, err
 	}

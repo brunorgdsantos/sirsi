@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"Sirsi/src/utils"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -32,11 +33,12 @@ func NewMongoRepositoryContext(uri, dbName, collectionName string) (*MongoReposi
 		client:     client,
 	}, nil
 
-	func (r *MongoRepositoryContext) Create(contextServer context.Context, document interface{}) error {
-		_, err := r.Collection.InsertOne(contextServer, document)
-		if err != nil {
-			return utils.BadRequestError(fmt.Sprintf("Erro ao inserir documento: %v", err))
-		}
-		return nil
+}
+
+func (r *MongoRepositoryContext) Create(contextServer context.Context, document interface{}) error {
+	_, err := r.Collection.InsertOne(contextServer, document)
+	if err != nil {
+		return utils.BadRequestError(fmt.Sprintf("Erro ao inserir documento: %v", err))
 	}
+	return nil
 }
