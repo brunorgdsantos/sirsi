@@ -15,6 +15,75 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/cadastrar/vagas": {
+            "post": {
+                "description": "Registra uma novo vaga no banco",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Create Jobs"
+                ],
+                "summary": "Criar uma nova vaga",
+                "parameters": [
+                    {
+                        "description": "Dados da vaga",
+                        "name": "job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Vaga criado com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.APIError"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobs": {
+            "get": {
+                "description": "Retorna todas as vagas diponíveis no Banco (Colletion Testes)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Retorna vagas",
+                "responses": {
+                    "201": {
+                        "description": "Vagas retornadas com sucesso!",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao retornar as vagas",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.APIError"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "post": {
                 "description": "Registra um novo usuário na API",
@@ -61,6 +130,23 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.Job": {
+            "type": "object",
+            "properties": {
+                "descricao": {
+                    "type": "string"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "posted:": {
+                    "type": "string"
+                },
+                "titulo": {
                     "type": "string"
                 }
             }

@@ -64,3 +64,11 @@ func (r *MongoRepositoryContext) GetAll(ctx context.Context) ([]interface{}, err
 	}
 	return results, nil
 }
+
+func (r *MongoRepositoryContext) CreateJobsDb(contextServer context.Context, document interface{}) error {
+	_, err := r.Collection.InsertOne(contextServer, document)
+	if err != nil {
+		return utils.BadRequestError(fmt.Sprintf("Erro ao inserir dados: %v", err))
+	}
+	return nil
+}

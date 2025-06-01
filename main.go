@@ -9,7 +9,6 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
-	"net/http"
 )
 
 // @title API de Autenticação e Tarefas SIRSI
@@ -20,9 +19,10 @@ import (
 func main() {
 
 	uri, dbname := "mongodb+srv://sirsi:12345@clustersirsi.nibjz9g.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSirsi", "sirsi_database"
-	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")
-	//repoTask, errTask := repositories.NewTaskRepository(uri, dbname, "tasks")
+	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")   //Collection users
+	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas") //Collection testes //Collection testes
 
+	//repoTask, errTask := repositories.NewTaskRepository(uri, dbname, "tasks")
 	/*if errUser != nil || errTask != nil {
 		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v,errTask=%v ", errUser,
 			errTask)
@@ -43,12 +43,17 @@ func main() {
 
 	controllers.NewUserController(server, repoUser)
 
-	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "teste")
 	if errTeste != nil {
 		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v ", errUser)
 		return
 	}
+
 	jobController := controllers.NewJobController(repoTestes)
+	server.GET("/jobs", jobController.GetJobsApiSwagger)
+	server.GET("/jobs/vagas", jobController.GetJobsPage)
+
+	controllers.NewJobControllerCreate(server, repoTestes)
+	//Sserver.POST("/cadastrar/vagas", jobControllerTeste.GetJobsApiSwagger)
 
 	// @securityDefinitions.apikey BearerAuth
 	// @in header
@@ -56,14 +61,12 @@ func main() {
 	// @description Value: Bearer abc... (Bearer+space+token)
 	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1)))
 
-	server.GET("/", func(c *gin.Context) {
+	/*server.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"title":   "Sirsi",
 			"message": "x",
 		})
-	})
-
-	server.GET("/jobs", jobController.GetJobsPage)
+	}) */
 
 	server.Run(":8001")
 }

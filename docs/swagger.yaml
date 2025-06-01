@@ -5,6 +5,17 @@ definitions:
       error:
         type: string
     type: object
+  dtos.Job:
+    properties:
+      descricao:
+        type: string
+      localizacao:
+        type: string
+      'posted:':
+        type: string
+      titulo:
+        type: string
+    type: object
   dtos.Message:
     properties:
       message:
@@ -27,6 +38,51 @@ info:
   title: API de Autenticação e Tarefas SIRSI
   version: "1.0"
 paths:
+  /cadastrar/vagas:
+    post:
+      consumes:
+      - application/json
+      description: Registra uma novo vaga no banco
+      parameters:
+      - description: Dados da vaga
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.Job'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Vaga criado com sucesso
+          schema:
+            $ref: '#/definitions/dtos.Message'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/dtos.APIError'
+      summary: Criar uma nova vaga
+      tags:
+      - Create Jobs
+  /jobs:
+    get:
+      consumes:
+      - application/json
+      description: Retorna todas as vagas diponíveis no Banco (Colletion Testes)
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Vagas retornadas com sucesso!
+          schema:
+            $ref: '#/definitions/dtos.Message'
+        "400":
+          description: Erro ao retornar as vagas
+          schema:
+            $ref: '#/definitions/dtos.APIError'
+      summary: Retorna vagas
+      tags:
+      - jobs
   /users:
     post:
       consumes:

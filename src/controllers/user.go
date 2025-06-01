@@ -19,7 +19,7 @@ func NewUserController(router *gin.Engine, repo *repositories.UserRepository) {
 
 	routes := router.Group("/users")
 	{
-		routes.POST("/users", controller.CreateUser)
+		routes.POST("", controller.CreateUser)
 	}
 }
 
