@@ -9,6 +9,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
+	"net/http"
 )
 
 // @title API de Autenticação e Tarefas SIRSI
@@ -34,15 +35,35 @@ func main() {
 	}
 
 	server := gin.Default()
+
+	server.LoadHTMLGlob("src/templates/*") //Carrega templates HTML
+	server.Static("/static", "src/static")
+
 	server.Use(middlewares.ErrorMiddlewareHandler())
 
 	controllers.NewUserController(server, repoUser)
+
+	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "teste")
+	if errTeste != nil {
+		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v ", errUser)
+		return
+	}
+	jobController := controllers.NewJobController(repoTestes)
 
 	// @securityDefinitions.apikey BearerAuth
 	// @in header
 	// @name Authorization
 	// @description Value: Bearer abc... (Bearer+space+token)
 	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1)))
+
+	server.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title":   "Sirsi",
+			"message": "x",
+		})
+	})
+
+	server.GET("/jobs", jobController.GetJobsPage)
 
 	server.Run(":8001")
 }

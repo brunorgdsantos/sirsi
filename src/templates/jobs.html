@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Estilos específicos para a tela de vagas para uma melhor visualização */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .job-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .job-card:hover {
+            transform: translateY(-5px);
+        }
+        .job-card h3 {
+            color: #0056b3; /* Um tom de azul para os títulos das vagas */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .job-card p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .job-card .company, .job-card .location {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.95em;
+        }
+        .job-card .description {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 15px;
+        }
+        .job-card .posted-at {
+            font-size: 0.75em;
+            color: #999;
+            text-align: right;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        /* Estilo para quando não houver vagas */
+        .no-jobs-message {
+            text-align: center;
+            padding: 50px;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ .title }}</h1>
+
+    <div class="job-list">
+        {{ if .jobs }}
+        {{ range .jobs }}
+        <div class="job-card">
+            <h3>{{ .Title }}</h3>
+            <p class="company">Cargo: {{ .titulo }}</p>
+            <p class="location">Localização: {{ .Localizacao }}</p>
+            <p class="description">{{ .Description }}</p>
+            <p class="posted-at">Publicado em: {{ .PostedAt.Format "02 de Janeiro de 2006" }}</p>
+        </div>
+        {{ end }}
+        {{ else }}
+        <p class="no-jobs-message">Nenhuma vaga disponível no momento. Volte mais tarde!</p>
+        {{ end }}
+    </div>
+</div>
+
+</html>
