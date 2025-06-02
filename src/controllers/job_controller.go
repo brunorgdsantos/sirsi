@@ -28,7 +28,27 @@ func NewJobControllerCreate(router *gin.Engine, repo *repositories.JobRepository
 	}
 }
 
-// @Tags jobs
+func NewJobControllerUpdate(router *gin.Engine, repo *repositories.JobRepository) {
+	service := services.NewJobService(repo)
+	controller := &JobController{service: service}
+
+	routes := router.Group("/atualizar/vagas")
+	{
+		routes.PUT("", controller.UpdateJobs)
+	}
+}
+
+func NewJobControllerDelete(router *gin.Engine, repo *repositories.JobRepository) {
+	service := services.NewJobService(repo)
+	controller := &JobController{service: service}
+
+	routes := router.Group("/deletar/vagas")
+	{
+		routes.DELETE("", controller.DeleteJobs)
+	}
+}
+
+// @Tags Read jobs
 // @Router /jobs [get]
 // @Summary Retorna vagas
 // @Description Retorna todas as vagas diponíveis no Banco (Colletion Testes)
@@ -72,7 +92,65 @@ func (c *JobController) CreateJobs(ginContext *gin.Context) {
 	}
 
 	ginContext.JSON(http.StatusCreated, dtos.Message{
-		Message: "Usuário criado com sucesso!",
+		Message: "Vaga criada com sucesso!",
+	})
+}
+
+// @Tags Update Jobs
+// @Router /atualizar/vagas [put]
+// @Summary atualizar uma vaga
+// @Description Atualziar uma vaga no banco
+// @Accept json
+// @Produce json
+// @Param job body dtos.Job true "Dados da vaga"
+// @Success 201 {object} dtos.Message "Vaga atualizada com sucesso"
+// @Failure 400 {object} dtos.APIError "Erro de validação"
+func (c *JobController) UpdateJobs(ginContext *gin.Context) {
+	var jobDto dtos.Job
+
+	err := utils.ValidateRequestBody(ginContext, &jobDto)
+	if err != nil {
+		ginContext.Error(err)
+		return
+	}
+
+	err = c.service.UpdateJob(jobDto.Id, jobDto.Titulo, jobDto.Descricao, jobDto.Localizacao)
+	if err != nil {
+		ginContext.Error(err)
+		return
+	}
+
+	ginContext.JSON(http.StatusCreated, dtos.Message{
+		Message: "Vaga atualizada com sucesso!",
+	})
+}
+
+// @Tags Deletar Jobs
+// @Router /deletar/vagas [delete]
+// @Summary Deletar uma vaga
+// @Description Deletar uma vaga no banco
+// @Accept json
+// @Produce json
+// @Param job body dtos.JobDelete true "Dados da vaga"
+// @Success 201 {object} dtos.Message "Vaga atualizada com sucesso"
+// @Failure 400 {object} dtos.APIError "Erro de validação"
+func (c *JobController) DeleteJobs(ginContext *gin.Context) {
+	var jobDto dtos.Job
+
+	err := utils.ValidateRequestBody(ginContext, &jobDto)
+	if err != nil {
+		ginContext.Error(err)
+		return
+	}
+
+	err = c.service.DeleteJob(jobDto.Id)
+	if err != nil {
+		ginContext.Error(err)
+		return
+	}
+
+	ginContext.JSON(http.StatusCreated, dtos.Message{
+		Message: "Vaga deletada com sucesso!",
 	})
 }
 

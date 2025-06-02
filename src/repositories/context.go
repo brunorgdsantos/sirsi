@@ -72,3 +72,19 @@ func (r *MongoRepositoryContext) CreateJobsDb(contextServer context.Context, doc
 	}
 	return nil
 }
+
+func (r *MongoRepositoryContext) UpdateJobsDb(contextServer context.Context, id interface{}, update interface{}) error {
+	_, err := r.Collection.UpdateByID(contextServer, id, bson.M{"$set": update})
+	if err != nil {
+		return utils.BadRequestError(fmt.Sprintf("Erro ao atualizar dados: %v", err))
+	}
+	return nil
+}
+
+func (r *MongoRepositoryContext) DeleteJobsDb(contextServer context.Context, id interface{}) error {
+	_, err := r.Collection.DeleteOne(contextServer, bson.M{"_id": id})
+	if err != nil {
+		return utils.BadRequestError(fmt.Sprintf("Erro ao deletar dados: %v", err))
+	}
+	return nil
+}

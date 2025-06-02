@@ -9,11 +9,18 @@ definitions:
     properties:
       descricao:
         type: string
+      id:
+        type: string
       localizacao:
         type: string
       'posted:':
         type: string
       titulo:
+        type: string
+    type: object
+  dtos.JobDelete:
+    properties:
+      id:
         type: string
     type: object
   dtos.Message:
@@ -38,6 +45,32 @@ info:
   title: API de Autenticação e Tarefas SIRSI
   version: "1.0"
 paths:
+  /atualizar/vagas:
+    put:
+      consumes:
+      - application/json
+      description: Atualziar uma vaga no banco
+      parameters:
+      - description: Dados da vaga
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.Job'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Vaga atualizada com sucesso
+          schema:
+            $ref: '#/definitions/dtos.Message'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/dtos.APIError'
+      summary: atualizar uma vaga
+      tags:
+      - Update Jobs
   /cadastrar/vagas:
     post:
       consumes:
@@ -64,6 +97,32 @@ paths:
       summary: Criar uma nova vaga
       tags:
       - Create Jobs
+  /deletar/vagas:
+    delete:
+      consumes:
+      - application/json
+      description: Deletar uma vaga no banco
+      parameters:
+      - description: Dados da vaga
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.JobDelete'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Vaga atualizada com sucesso
+          schema:
+            $ref: '#/definitions/dtos.Message'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/dtos.APIError'
+      summary: Deletar uma vaga
+      tags:
+      - Deletar Jobs
   /jobs:
     get:
       consumes:
@@ -82,7 +141,7 @@ paths:
             $ref: '#/definitions/dtos.APIError'
       summary: Retorna vagas
       tags:
-      - jobs
+      - Read jobs
   /users:
     post:
       consumes:

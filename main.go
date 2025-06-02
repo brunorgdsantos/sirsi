@@ -53,7 +53,8 @@ func main() {
 	server.GET("/jobs/vagas", jobController.GetJobsPage)
 
 	controllers.NewJobControllerCreate(server, repoTestes)
-	//Sserver.POST("/cadastrar/vagas", jobControllerTeste.GetJobsApiSwagger)
+	controllers.NewJobControllerUpdate(server, repoTestes)
+	controllers.NewJobControllerDelete(server, repoTestes)
 
 	// @securityDefinitions.apikey BearerAuth
 	// @in header

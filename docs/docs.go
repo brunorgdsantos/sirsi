@@ -15,6 +15,46 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/atualizar/vagas": {
+            "put": {
+                "description": "Atualziar uma vaga no banco",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Update Jobs"
+                ],
+                "summary": "atualizar uma vaga",
+                "parameters": [
+                    {
+                        "description": "Dados da vaga",
+                        "name": "job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Vaga atualizada com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.APIError"
+                        }
+                    }
+                }
+            }
+        },
         "/cadastrar/vagas": {
             "post": {
                 "description": "Registra uma novo vaga no banco",
@@ -55,6 +95,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/deletar/vagas": {
+            "delete": {
+                "description": "Deletar uma vaga no banco",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Deletar Jobs"
+                ],
+                "summary": "Deletar uma vaga",
+                "parameters": [
+                    {
+                        "description": "Dados da vaga",
+                        "name": "job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.JobDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Vaga atualizada com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.APIError"
+                        }
+                    }
+                }
+            }
+        },
         "/jobs": {
             "get": {
                 "description": "Retorna todas as vagas diponíveis no Banco (Colletion Testes)",
@@ -65,7 +145,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "jobs"
+                    "Read jobs"
                 ],
                 "summary": "Retorna vagas",
                 "responses": {
@@ -140,6 +220,9 @@ const docTemplate = `{
                 "descricao": {
                     "type": "string"
                 },
+                "id": {
+                    "type": "string"
+                },
                 "localizacao": {
                     "type": "string"
                 },
@@ -147,6 +230,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "titulo": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.JobDelete": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }
