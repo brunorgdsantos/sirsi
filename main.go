@@ -19,8 +19,9 @@ import (
 func main() {
 
 	uri, dbname := "mongodb+srv://sirsi:12345@clustersirsi.nibjz9g.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSirsi", "sirsi_database"
-	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")   //Collection users
-	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas") //Collection testes //Collection testes
+	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")                 //Collection users
+	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas")               //Collection testes
+	repoCurriculo, errTeste := repositories.NewCurriculoRepository(uri, dbname, "curriculos") //Collection curriculo
 
 	//repoTask, errTask := repositories.NewTaskRepository(uri, dbname, "tasks")
 	/*if errUser != nil || errTask != nil {
@@ -55,6 +56,7 @@ func main() {
 	controllers.NewJobControllerCreate(server, repoTestes)
 	controllers.NewJobControllerUpdate(server, repoTestes)
 	controllers.NewJobControllerDelete(server, repoTestes)
+	controllers.NewCurriculoController(server, repoCurriculo)
 
 	// @securityDefinitions.apikey BearerAuth
 	// @in header

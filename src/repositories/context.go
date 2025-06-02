@@ -39,7 +39,7 @@ func NewMongoRepositoryContext(uri, dbName, collectionName string) (*MongoReposi
 func (r *MongoRepositoryContext) Create(contextServer context.Context, document interface{}) error {
 	_, err := r.Collection.InsertOne(contextServer, document)
 	if err != nil {
-		return utils.BadRequestError(fmt.Sprintf("Erro ao inserir documento: %v", err))
+		return utils.BadRequestError(fmt.Sprintf("Erro ao inserir dados: %v", err))
 	}
 	return nil
 }

@@ -5,6 +5,17 @@ definitions:
       error:
         type: string
     type: object
+  dtos.Curriculo:
+    properties:
+      experiencia:
+        type: string
+      formacao:
+        type: string
+      nome:
+        type: string
+      sobrenome:
+        type: string
+    type: object
   dtos.Job:
     properties:
       descricao:
@@ -97,6 +108,32 @@ paths:
       summary: Criar uma nova vaga
       tags:
       - Create Jobs
+  /curriculo:
+    post:
+      consumes:
+      - application/json
+      description: Cadastra um novo curriculo no banco
+      parameters:
+      - description: Dados do curriculo
+        in: body
+        name: curriculo
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.Curriculo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Curriculo cadastrado
+          schema:
+            $ref: '#/definitions/dtos.Message'
+        "400":
+          description: Erro de validação
+          schema:
+            $ref: '#/definitions/dtos.APIError'
+      summary: Cadastra um novo curriculo
+      tags:
+      - Create curriculo
   /deletar/vagas:
     delete:
       consumes:

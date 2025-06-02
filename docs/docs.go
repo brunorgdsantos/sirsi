@@ -95,6 +95,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/curriculo": {
+            "post": {
+                "description": "Cadastra um novo curriculo no banco",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Create curriculo"
+                ],
+                "summary": "Cadastra um novo curriculo",
+                "parameters": [
+                    {
+                        "description": "Dados do curriculo",
+                        "name": "curriculo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Curriculo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Curriculo cadastrado",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.APIError"
+                        }
+                    }
+                }
+            }
+        },
         "/deletar/vagas": {
             "delete": {
                 "description": "Deletar uma vaga no banco",
@@ -210,6 +250,23 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.Curriculo": {
+            "type": "object",
+            "properties": {
+                "experiencia": {
+                    "type": "string"
+                },
+                "formacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "sobrenome": {
                     "type": "string"
                 }
             }
