@@ -9,6 +9,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
+	"os"
 )
 
 // @title API de Autenticação e Tarefas SIRSI
@@ -18,7 +19,8 @@ import (
 // @BasePath /
 func main() {
 
-	uri, dbname := "mongodb+srv://sirsi:12345@clustersirsi.nibjz9g.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSirsi", "sirsi_database"
+	uri := os.Getenv("MONGO_URI")
+	dbname := "sirsi_database"
 	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")                 //Collection users
 	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas")               //Collection testes
 	repoCurriculo, errTeste := repositories.NewCurriculoRepository(uri, dbname, "curriculos") //Collection curriculo
@@ -37,7 +39,7 @@ func main() {
 
 	server := gin.Default()
 
-	server.LoadHTMLGlob("src/templates/*") //Carrega templates HTML
+	//server.LoadHTMLGlob("src/templates/*.html") //Carrega templates HTML
 	server.Static("/static", "src/static")
 
 	server.Use(middlewares.ErrorMiddlewareHandler())
