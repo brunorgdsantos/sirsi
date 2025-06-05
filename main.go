@@ -12,6 +12,8 @@ import (
 	"os"
 )
 
+// comment
+
 // @title API de Autenticação e Tarefas SIRSI
 // @version 1.0
 // @description API do Sistema de Recrutamento e Seleção Inteligente (SIRSI)
