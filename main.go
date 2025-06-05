@@ -21,6 +21,7 @@ func main() {
 
 	uri := os.Getenv("MONGO_URI")
 	dbname := "sirsi_database"
+	//uri, dbname := "mongodb+srv://sirsi:12345@clustersirsi.nibjz9g.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSirsi", "sirsi_database"
 	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")
 	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas")
 	repoCurriculo, errTeste := repositories.NewCurriculoRepository(uri, dbname, "curriculos")

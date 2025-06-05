@@ -1,8 +1,10 @@
 package dtos
 
 type Curriculo struct {
-	Nome        string `json:"nome"`
-	Sobrenome   string `json:"sobrenome"`
-	Formacao    string `json:"formacao"`
-	Experiencia string `json:"experiencia"`
+	Nome        string      `json:"nome"`
+	Sobrenome   string      `json:"sobrenome"`
+	Idade       int         `json:"idade"`
+	Email       string      `json:"email"`
+	Formacao    []Education `json:"formacao"`
+	Experiencia []string    `json:"experiencia"`
 }

@@ -257,16 +257,42 @@ const docTemplate = `{
         "dtos.Curriculo": {
             "type": "object",
             "properties": {
-                "experiencia": {
+                "email": {
                     "type": "string"
                 },
+                "experiencia": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "formacao": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dtos.Education"
+                    }
+                },
+                "idade": {
+                    "type": "integer"
                 },
                 "nome": {
                     "type": "string"
                 },
                 "sobrenome": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.Education": {
+            "type": "object",
+            "properties": {
+                "course": {
+                    "type": "string"
+                },
+                "institution": {
+                    "type": "string"
+                },
+                "level": {
                     "type": "string"
                 }
             }

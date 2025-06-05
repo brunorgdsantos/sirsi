@@ -20,6 +20,7 @@ func NewCurriculoController(router *gin.Engine, repo *repositories.CurriculoRepo
 	routes := router.Group("/curriculo")
 	{
 		routes.POST("", controller.CreateCurriculo)
+
 	}
 }
 
@@ -41,7 +42,7 @@ func (c *CurriculoController) CreateCurriculo(ginContext *gin.Context) {
 		return
 	}
 
-	err = c.service.CreateCurriculo(curriculoDto.Nome, curriculoDto.Sobrenome, curriculoDto.Formacao, curriculoDto.Experiencia)
+	err = c.service.CreateCurriculo(curriculoDto.Nome, curriculoDto.Sobrenome, curriculoDto.Idade, curriculoDto.Email, curriculoDto.Formacao, curriculoDto.Experiencia)
 	if err != nil {
 		ginContext.Error(err)
 		return

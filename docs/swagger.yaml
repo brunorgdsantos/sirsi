@@ -7,13 +7,30 @@ definitions:
     type: object
   dtos.Curriculo:
     properties:
+      email:
+        type: string
       experiencia:
-        type: string
+        items:
+          type: string
+        type: array
       formacao:
-        type: string
+        items:
+          $ref: '#/definitions/dtos.Education'
+        type: array
+      idade:
+        type: integer
       nome:
         type: string
       sobrenome:
+        type: string
+    type: object
+  dtos.Education:
+    properties:
+      course:
+        type: string
+      institution:
+        type: string
+      level:
         type: string
     type: object
   dtos.Job:

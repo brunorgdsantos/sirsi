@@ -4,6 +4,7 @@ import (
 	"Sirsi/src/dtos"
 	"Sirsi/src/repositories"
 	"Sirsi/src/utils"
+	"fmt"
 )
 
 type CurriculoService struct {
@@ -14,13 +15,16 @@ func NewCurriculoService(repo *repositories.CurriculoRepository) *CurriculoServi
 	return &CurriculoService{repo: repo}
 }
 
-func (service *CurriculoService) CreateCurriculo(nome, sobrenome, formacao, experiencia string) error {
+func (service *CurriculoService) CreateCurriculo(nome, sobrenome string, idade int, email string, formacao []dtos.Education, experiencia []string) error {
 	curriculo := dtos.Curriculo{
 		Nome:        nome,
 		Sobrenome:   sobrenome,
+		Idade:       idade,
+		Email:       email,
 		Formacao:    formacao,
 		Experiencia: experiencia,
 	}
+	fmt.Print(curriculo)
 
 	contextServer := utils.CreateContextServerWithTimeout()
 
