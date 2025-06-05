@@ -59,12 +59,5 @@ func main() {
 	// @description Value: Bearer abc... (Bearer+space+token)
 	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1)))
 
-	/*server.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"title":   "Sirsi",
-			"message": "x",
-		})
-	}) */
-
 	server.Run(":8001")
 }
