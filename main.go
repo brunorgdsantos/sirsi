@@ -21,16 +21,9 @@ func main() {
 
 	uri := os.Getenv("MONGO_URI")
 	dbname := "sirsi_database"
-	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")                 //Collection users
-	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas")               //Collection testes
-	repoCurriculo, errTeste := repositories.NewCurriculoRepository(uri, dbname, "curriculos") //Collection curriculo
-
-	//repoTask, errTask := repositories.NewTaskRepository(uri, dbname, "tasks")
-	/*if errUser != nil || errTask != nil {
-		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v,errTask=%v ", errUser,
-			errTask)
-		return
-	} */
+	repoUser, errUser := repositories.NewUserRepository(uri, dbname, "users")
+	repoTestes, errTeste := repositories.NewJobRepository(uri, dbname, "vagas")
+	repoCurriculo, errTeste := repositories.NewCurriculoRepository(uri, dbname, "curriculos")
 
 	if errUser != nil {
 		log.Fatalf("Erro no repositorio ao iniciar: errUser=%v ", errUser)
