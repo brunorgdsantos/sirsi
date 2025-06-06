@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dtos.Job"
+                            "$ref": "#/definitions/dtos.Vacancies"
                         }
                     }
                 ],
@@ -75,7 +75,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dtos.Job"
+                            "$ref": "#/definitions/dtos.Vacancies"
                         }
                     }
                 ],
@@ -155,7 +155,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dtos.JobDelete"
+                            "$ref": "#/definitions/dtos.Vacancies_Delete_dto"
                         }
                     }
                 ],
@@ -297,34 +297,6 @@ const docTemplate = `{
                 }
             }
         },
-        "dtos.Job": {
-            "type": "object",
-            "properties": {
-                "descricao": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "localizacao": {
-                    "type": "string"
-                },
-                "posted:": {
-                    "type": "string"
-                },
-                "titulo": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.JobDelete": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
         "dtos.Message": {
             "type": "object",
             "properties": {
@@ -344,6 +316,46 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.Vacancies": {
+            "type": "object",
+            "properties": {
+                "are": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "posted:": {
+                    "type": "string"
+                },
+                "requirements": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.Vacancies_Delete_dto": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }

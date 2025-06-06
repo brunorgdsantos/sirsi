@@ -73,19 +73,19 @@ func (ctrl *JobController) GetJobsApiSwagger(c *gin.Context) {
 // @Description Registra uma novo vaga no banco
 // @Accept json
 // @Produce json
-// @Param job body dtos.Job true "Dados da vaga"
+// @Param job body dtos.Vacancies true "Dados da vaga"
 // @Success 201 {object} dtos.Message "Vaga criado com sucesso"
 // @Failure 400 {object} dtos.APIError "Erro de validação"
 func (c *JobController) CreateJobs(ginContext *gin.Context) {
-	var jobDto dtos.Job
+	var vacanciesDto dtos.Vacancies
 
-	err := utils.ValidateRequestBody(ginContext, &jobDto)
+	err := utils.ValidateRequestBody(ginContext, &vacanciesDto)
 	if err != nil {
 		ginContext.Error(err)
 		return
 	}
 
-	err = c.service.CreateJob(jobDto.Titulo, jobDto.Descricao, jobDto.Localizacao)
+	err = c.service.CreateJob(vacanciesDto.Title, vacanciesDto.Description, vacanciesDto.Area, vacanciesDto.Category, vacanciesDto.Location, vacanciesDto.Requirements, vacanciesDto.PostedAt)
 	if err != nil {
 		ginContext.Error(err)
 		return
@@ -102,11 +102,11 @@ func (c *JobController) CreateJobs(ginContext *gin.Context) {
 // @Description Atualziar uma vaga no banco
 // @Accept json
 // @Produce json
-// @Param job body dtos.Job true "Dados da vaga"
+// @Param job body dtos.Vacancies true "Dados da vaga"
 // @Success 201 {object} dtos.Message "Vaga atualizada com sucesso"
 // @Failure 400 {object} dtos.APIError "Erro de validação"
 func (c *JobController) UpdateJobs(ginContext *gin.Context) {
-	var jobDto dtos.Job
+	var jobDto dtos.Vacancies
 
 	err := utils.ValidateRequestBody(ginContext, &jobDto)
 	if err != nil {
@@ -114,7 +114,7 @@ func (c *JobController) UpdateJobs(ginContext *gin.Context) {
 		return
 	}
 
-	err = c.service.UpdateJob(jobDto.Id, jobDto.Titulo, jobDto.Descricao, jobDto.Localizacao)
+	err = c.service.UpdateJob(jobDto.Id, jobDto.Title, jobDto.Description, jobDto.Location)
 	if err != nil {
 		ginContext.Error(err)
 		return
@@ -131,11 +131,11 @@ func (c *JobController) UpdateJobs(ginContext *gin.Context) {
 // @Description Deletar uma vaga no banco
 // @Accept json
 // @Produce json
-// @Param job body dtos.JobDelete true "Dados da vaga"
+// @Param job body dtos.Vacancies_Delete_dto true "Dados da vaga"
 // @Success 201 {object} dtos.Message "Vaga atualizada com sucesso"
 // @Failure 400 {object} dtos.APIError "Erro de validação"
 func (c *JobController) DeleteJobs(ginContext *gin.Context) {
-	var jobDto dtos.Job
+	var jobDto dtos.Vacancies
 
 	err := utils.ValidateRequestBody(ginContext, &jobDto)
 	if err != nil {

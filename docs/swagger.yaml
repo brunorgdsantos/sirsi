@@ -33,24 +33,6 @@ definitions:
       level:
         type: string
     type: object
-  dtos.Job:
-    properties:
-      descricao:
-        type: string
-      id:
-        type: string
-      localizacao:
-        type: string
-      'posted:':
-        type: string
-      titulo:
-        type: string
-    type: object
-  dtos.JobDelete:
-    properties:
-      id:
-        type: string
-    type: object
   dtos.Message:
     properties:
       message:
@@ -65,6 +47,32 @@ definitions:
     required:
     - email
     - password
+    type: object
+  dtos.Vacancies:
+    properties:
+      are:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      'posted:':
+        type: string
+      requirements:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  dtos.Vacancies_Delete_dto:
+    properties:
+      id:
+        type: string
     type: object
 host: localhost:8001
 info:
@@ -84,7 +92,7 @@ paths:
         name: job
         required: true
         schema:
-          $ref: '#/definitions/dtos.Job'
+          $ref: '#/definitions/dtos.Vacancies'
       produces:
       - application/json
       responses:
@@ -110,7 +118,7 @@ paths:
         name: job
         required: true
         schema:
-          $ref: '#/definitions/dtos.Job'
+          $ref: '#/definitions/dtos.Vacancies'
       produces:
       - application/json
       responses:
@@ -162,7 +170,7 @@ paths:
         name: job
         required: true
         schema:
-          $ref: '#/definitions/dtos.JobDelete'
+          $ref: '#/definitions/dtos.Vacancies_Delete_dto'
       produces:
       - application/json
       responses:

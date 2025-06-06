@@ -20,11 +20,15 @@ func (s *JobService) GetAllJobs(ctx context.Context) ([]interface{}, error) {
 	return s.repo.GetAll(ctx)
 }
 
-func (service *JobService) CreateJob(titulo, descricao, localizacao string) error {
-	user := dtos.Job{
-		Titulo:      titulo,
-		Descricao:   descricao,
-		Localizacao: localizacao,
+func (service *JobService) CreateJob(title, description, area, category, location string, requirements []string, postedDate string) error {
+	user := dtos.Vacancies{
+		Title:        title,
+		Description:  description,
+		Area:         area,
+		Category:     category,
+		Location:     location,
+		Requirements: requirements,
+		PostedAt:     postedDate,
 	}
 
 	contextServer := utils.CreateContextServerWithTimeout()
@@ -36,16 +40,16 @@ func (service *JobService) CreateJob(titulo, descricao, localizacao string) erro
 	return nil
 }
 
-func (service *JobService) UpdateJob(id, titulo, descricao, localizacao string) error {
+func (service *JobService) UpdateJob(id, title, description, location string) error {
 	objID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return utils.BadRequestError("ID inválido")
 	}
 
-	user := dtos.Job{
-		Titulo:      titulo,
-		Descricao:   descricao,
-		Localizacao: localizacao,
+	user := dtos.Vacancies{
+		Title:       title,
+		Description: description,
+		Location:    location,
 	}
 
 	contextServer := utils.CreateContextServerWithTimeout()

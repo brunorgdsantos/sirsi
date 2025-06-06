@@ -1,5 +1,5 @@
 package dtos
 
-type JobDelete struct {
+type Vacancies_Delete_dto struct {
 	Id string `json:"id"`
 }
